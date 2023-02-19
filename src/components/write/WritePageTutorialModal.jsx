@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Modal } from "../common/modal/ReactModal";
-import write_tutorial from "../../assets/images/write_tutorial.svg";
 import { GrClose } from "react-icons/gr";
+import write_tutorial from "../../assets/images/write_tutorial.svg";
+import { Modal } from "../common/modal/ReactModal";
 
 const WritePageTutorialModal = ({ children }) => {
   return (

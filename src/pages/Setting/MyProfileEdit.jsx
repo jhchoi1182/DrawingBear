@@ -11,18 +11,20 @@ import Buttons from "../../components/common/Button/Buttons";
 import { Header } from "../../components/common/header/Header";
 
 const MyProfileEdit = () => {
+  const [image, setImage] = useState({ image_file: "", preview_URL: "" });
+  const [nick, setNick] = useState("");
   const { openAlertModal } = useDispatchHook();
+
+  let inputRef;
+
   const { data, isLoading } = useQuery(["myProfileData"], mypageApi.read);
+
   const { mutate } = useMutation((formData) => mypageApi.update(formData), {
     onSuccess: (success) => {
-      openAlertModal({ bigTxt: success.message, move: "/setting/" }); //모달창에 전달하는 데이터
+      openAlertModal({ bigTxt: success.message, move: "/setting/" });
     },
   });
-  const [nick, setNick] = useState("");
-  const [image, setImage] = useState({
-    image_file: "",
-    preview_URL: "",
-  });
+
   const {
     register,
     handleSubmit,
@@ -32,6 +34,7 @@ const MyProfileEdit = () => {
   const nickChangeHandle = (event) => {
     setNick(event.target.value);
   };
+
   const imgOnChnageHandler = (e) => {
     e.preventDefault();
 
@@ -45,6 +48,7 @@ const MyProfileEdit = () => {
       }));
     }
   };
+
   const onSubmit = (data) => {
     const formData = new FormData();
     if (!data.nickname) {
@@ -64,8 +68,6 @@ const MyProfileEdit = () => {
     setNick(data?.userInfo.nickname);
     setImage({ preview_URL: data?.userInfo.profileImg });
   }, [isLoading]);
-
-  let inputRef;
 
   return (
     <>

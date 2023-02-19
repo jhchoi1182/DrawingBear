@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { flex } from "../../UI/common";
 import Diary from "./Diary/Diary";
+import { flex } from "../../UI/common";
 
 const BookmarkTab = ({ diaryData }) => {
   const navigate = useNavigate();

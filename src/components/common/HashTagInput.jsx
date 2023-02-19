@@ -1,10 +1,8 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { TiDelete } from "react-icons/ti";
 import { flex } from "../../UI/common";
 
 const HashTagInput = ({ tags, setTags }) => {
-  // const [tags, setTags] = useState([]);
 
   const HashTagInputOnchangeHandler = (event) => {
     const { value } = event.target;

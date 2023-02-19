@@ -6,6 +6,7 @@ const WeatherPicker = ({ weather, setWeather }) => {
   const handleChange = (e) => {
     setWeather(e.target.value);
   };
+  
   return (
     <StWeatherPickerContainer>
       <label htmlFor="sun">

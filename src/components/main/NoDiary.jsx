@@ -1,9 +1,9 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import CreateDiaryModal from "./CreateDiaryModal";
 import NoDiaryBear from "../../assets/images/noDiaryBear.webp";
-import { flex } from "../../UI/common";
-import { useSelector } from "react-redux";
 import Diary from "./Diary/Diary";
+import { flex } from "../../UI/common";
 
 const NoDiary = () => {
   const { icon } = useSelector((state) => state.diarySlice.diaryTypes);

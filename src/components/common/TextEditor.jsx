@@ -5,7 +5,6 @@ import "react-quill/dist/quill.bubble.css";
 import borderLine from "../../assets/images/borderLine.png";
 
 const TextEditor = ({ contents, setContents }) => {
-  // const [contents, setContents] = useState("");
   const modules = useMemo(
     () => ({
       toolbar: {

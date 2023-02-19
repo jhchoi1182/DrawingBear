@@ -2,13 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postsApi } from "../../apis/axios";
 import Buttons from "../common/Button/Buttons";
+import { postsApi } from "../../apis/axios";
 import { flex } from "../../UI/common";
 
 const DiaryCard = ({ postData }) => {
   const queryClient = useQueryClient();
   const naigate = useNavigate();
+
   const {
     postId,
     nickname,
@@ -41,8 +42,6 @@ const DiaryCard = ({ postData }) => {
   const redirectDetailpage = () => {
     naigate(`/detail/${postId}`);
   };
-
-  
 
   return (
     <StDiaryCardContainer>

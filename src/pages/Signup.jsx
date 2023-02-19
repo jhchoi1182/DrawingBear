@@ -1,30 +1,36 @@
-import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
-import { flex } from "../UI/common";
-import defaultImg from "../assets/images/default_image.png";
-import { GrPrevious } from "react-icons/gr";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import { loginApi } from "../apis/axios";
+import { useNavigate } from "react-router-dom";
+import { GrPrevious } from "react-icons/gr";
 import { Input, WorningWord } from "../components/common/Input";
+import { loginApi } from "../apis/axios";
 import useDispatchHook from "../hooks/useDispatchHook";
 import Buttons from "../components/common/Button/Buttons";
+import defaultImg from "../assets/images/default_image.png";
 import { Header } from "../components/common/header/Header";
+import { flex } from "../UI/common";
 
 const Signup = () => {
+  const [image, setImage] = useState({ image_file: "", preview_URL: defaultImg });
   const [screenChange, setScreenChange] = useState("");
   const { openAlertModal } = useDispatchHook();
-  const [image, setImage] = useState({
-    image_file: "",
-    preview_URL: defaultImg,
-  });
-
   const navigate = useNavigate();
 
-  const onScreenChangeHandler = () => {
-    setScreenChange(!screenChange);
-  };
+  let inputRef;
+
+  const { mutate } = useMutation((formData) => loginApi.create(formData), {
+    onSuccess: () => {
+      openAlertModal({ bigTxt: "회원가입 성공!", move: "/login" });
+    },
+    onError: (error) => {
+      const msg = error.response.data.message;
+      const errorStatus = error.response.status;
+
+      errorStatus === 409 && openAlertModal({ bigTxt: msg });
+    },
+  });
 
   const {
     register,
@@ -33,7 +39,9 @@ const Signup = () => {
     formState: { isSubmitting, isDirty, errors },
   } = useForm({ mode: "onChange" });
 
-  let inputRef;
+  const onScreenChangeHandler = () => {
+    setScreenChange(!screenChange);
+  };
 
   const imgOnChnageHandler = (e) => {
     e.preventDefault();
@@ -53,18 +61,6 @@ const Signup = () => {
       URL.revokeObjectURL(image.preview_URL);
     };
   }, []);
-
-  const { mutate } = useMutation((formData) => loginApi.create(formData), {
-    onSuccess: () => {
-      openAlertModal({ bigTxt: "회원가입 성공!", move: "/login" }); //모달창에 전달하는 데이터
-    },
-    onError: (error) => {
-      const msg = error.response.data.message;
-      const errorStatus = error.response.status;
-
-      if (errorStatus === 409) openAlertModal({ bigTxt: msg });
-    },
-  });
 
   return (
     <>

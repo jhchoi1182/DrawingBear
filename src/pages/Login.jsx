@@ -1,18 +1,18 @@
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import LonginForm from "../components/login/LonginForm";
-import { flex } from "../UI/common";
-import SocialLogin from "../components/login/SocialLogin";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
 import LoginSuccessModal from "../components/login/LoginSuccessModal";
-import Layout from "../components/common/Layout";
+import SocialLogin from "../components/login/SocialLogin";
+import LonginForm from "../components/login/LonginForm";
+import AlertModal from "../components/common/modal/AlertModal";
+import { flex } from "../UI/common";
 
 const Login = () => {
+  const { loginModal } = useSelector((state) => state.UISlice);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const { loginModal } = useSelector((state) => state.UISlice);
 
   useEffect(() => {
     queryClient.clear();
@@ -34,7 +34,12 @@ const Login = () => {
         <span>간편로그인</span>
         <hr />
       </BoundaryLine>
+      <AlertModal
+          bigTxt={"점검 중이에요!"}
+          smallTxt={"다음에 다시 시도해주세요"}
+        >
       <SocialLogin />
+      </AlertModal>
       {loginModal && <LoginSuccessModal showModal />}
     </>
   );

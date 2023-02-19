@@ -25,7 +25,7 @@ instance.interceptors.response.use(
       localStorage.removeItem("token");
       alert("로그인 후 이용가능합니다.");
       // return window.location.replace("http://localhost:3000/login");
-      return window.location.replace("https://drawbear.site/login");
+      return window.location.replace("https://drawing-bear.vercel.app/login");
     } else return Promise.reject(error);
   }
 );

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import CreateDiaryModal from "./CreateDiaryModal";
-import Diaries from "./Diaries";
+import Diaries from "./Diary/Diaries";
 import Buttons from "../common/Button/Buttons";
 
 const DiaryList = ({ diaryData }) => {

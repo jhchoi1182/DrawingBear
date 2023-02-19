@@ -1,30 +1,26 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import styled, { css } from "styled-components";
+import { useParams } from "react-router-dom";
 import { flex, StSection } from "../UI/common";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { GrPrevious } from "react-icons/gr";
 import { postsApi } from "../apis/axios";
-
 import Canvas from "../components/common/canvas/Canvas";
 import HashTagInput from "../components/common/HashTagInput";
 import TextEditor from "../components/common/TextEditor";
 import WeatherPicker from "../components/write/WeatherPicker";
-
-import { useParams } from "react-router-dom";
 import { imgUrlConvertBlob } from "../utils/imgUrlConvertBlob";
-import { useEffect } from "react";
-
-import { GrPrevious } from "react-icons/gr";
-
 import Loading from "../components/common/Loading";
 import useDispatchHook from "../hooks/useDispatchHook";
 import {Header} from "../components/common/header/Header";
 
 const UpdatePost = () => {
+  const [isDrawingEnd, setIsDrawingEnd] = useState(false);
+  const [contents, setContents] = useState("");
+  const [weather, setWeather] = useState("");
   const [canvas, setCanvas] = useState("");
   const [tags, setTags] = useState([]);
-  const [contents, setContents] = useState("");
-  const [isDrawingEnd, setIsDrawingEnd] = useState(false);
-  const [weather, setWeather] = useState("");
   const params = useParams().id;
   const queryClient = useQueryClient();
   const { openAlertModal } = useDispatchHook();
@@ -38,7 +34,7 @@ const UpdatePost = () => {
   const { mutate } = useMutation(postsApi.patch, {
     onError: (err) => {
       const status = err?.response.request.status;
-      status === 401 && openAlertModal({ bigTxt: "권한이 없습니다" });
+      status === 401 && openAlertModal({ bigTxt: "상대방의 일기는 수정할 수 없어요!" });
     },
     onSuccess: () => {
       queryClient.invalidateQueries("posts");

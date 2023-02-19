@@ -1,38 +1,43 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
-import styled from "styled-components";
-import TimeAgo from "timeago-react";
-import * as timeAgo from "timeago.js";
-import ko from "timeago.js/lib/lang/ko";
-import { alarmApi } from "../../apis/axios";
-import Buttons from "../../components/common/Button/Buttons";
-import NavigateBtn from "../../components/common/NavigateBtn";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import * as timeAgo from "timeago.js";
+import TimeAgo from "timeago-react";
+import ko from "timeago.js/lib/lang/ko";
+import NavigateBtn from "../../components/common/NavigateBtn";
+import Buttons from "../../components/common/Button/Buttons";
+import { alarmApi } from "../../apis/axios";
 import {Header} from "../../components/common/header/Header";
 
 const Alarm = () => {
-  timeAgo.register("ko", ko);
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  timeAgo.register("ko", ko);
+
   const { data = [], isError, error } = useQuery(["Allalarm"], alarmApi.read);
+
   const { mutate: alarmAddMutate } = useMutation(alarmApi.patch, {
     onSuccess: () => {
       queryClient.setQueryData(["footerIcons"], "couple");
       navigate("/");
     },
   });
+
   const { mutate: alarmDeleteMutate } = useMutation(alarmApi.delete, {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["Allalarm"] });
     },
   });
+
   const diaryJoinOnclickHandle = (diaryId, notificationId) => {
     const diaryjoinData = { diaryId, notificationId };
     alarmAddMutate(diaryjoinData);
   };
+
   const diaryCancelOnclickHandle = (notificationId) => {
     alarmDeleteMutate(notificationId);
   };
+
   const alarmMoveOnClickHandle = (code, notificationId, diaryId, postId) => {
     if (code === 4) {
       queryClient.setQueryData(["footerIcons"], "couple");
@@ -47,7 +52,7 @@ const Alarm = () => {
       alarmDeleteMutate(notificationId);
     }
   };
-  useEffect(() => {}, [data]);
+
   return (
     <>
       {isError ? (

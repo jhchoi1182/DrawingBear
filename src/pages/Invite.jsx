@@ -1,72 +1,63 @@
 import styled from "styled-components";
+import { useRef, useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import { inviteApi, mypageApi } from "../apis/axios";
 import { flex, StSection } from "../UI/common";
 import { BsSearch } from "react-icons/bs";
 import NavigateBtn from "../components/common/NavigateBtn";
-import { useRef, useState } from "react";
-import Toast from "./Toast";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { inviteApi, mypageApi } from "../apis/axios";
-import { useQueryClient } from "@tanstack/react-query";
-
-import { useParams } from "react-router-dom";
+import Toast from "../components/invite/Toast";
 import useDispatchHook from "../hooks/useDispatchHook";
 import Buttons from "../components/common/Button/Buttons";
-import {Header} from "../components/common/header/Header";
+import { Header } from "../components/common/header/Header";
 
 const Invite = () => {
-  const [name, setName] = useState("");
-  const [isInvite, setIsInvite] = useState(false);
   const [inviteUserInfo, setInviteUserInfo] = useState({});
   const [hostUserInfo, setHostUserInfo] = useState({});
+  const [isInvite, setIsInvite] = useState(false);
   const [popup, setPopup] = useState(false);
+  const [name, setName] = useState("");
   const queryClient = useQueryClient();
-  const { openAlertModal } = useDispatchHook();
   const socket = useRef(null);
   const { id } = useParams();
+  const { openAlertModal } = useDispatchHook();
+
   const { data } = useQuery(["setting"], mypageApi.read);
+
+  const { mutate: inviteSearchMutate } = useMutation((name) => inviteApi.search(name), {
+    onError: (error) => {
+      const status = error?.response.status;
+      status === 404 && openAlertModal({ isModal: true, bigTxt: "닉네임을 입력해주세요" });
+      status === 500 && openAlertModal({ bigTxt: "다른 사람의 닉네임을 입력해주세요" });
+      setName("");
+    },
+    onSuccess: ({ userInfo }) => {
+      setInviteUserInfo({ ...userInfo });
+      queryClient.setQueryData(["searchNickname"], userInfo);
+    },
+  });
+
+  const { mutate: inviteMutate } = useMutation((inviteData) => inviteApi.invite(inviteData), {
+    onError: (error) => {
+      const status = error.response.status;
+      status === 401 && openAlertModal({ bigTxt: "이미 공유하고있는 다이어리 입니다." });
+    },
+    onSuccess: () => {
+      setIsInvite(!isInvite);
+      setPopup(!popup);
+    },
+  });
+
   const nameChangeHandle = (event) => {
     setName(event.target.value);
   };
-  const { mutate: inviteSearchMutate } = useMutation(
-    (name) => inviteApi.search(name),
-    {
-      onError: (error) => {
-        const status = error?.response.status;
-        if (status === 404) {
-          openAlertModal({ isModal: true, bigTxt: "닉네임을 입력해주세요" });
-        }
-        if (status === 500) {
-          openAlertModal({
-            bigTxt: "다른 사람의 닉네임을 입력해주세요",
-          });
-          setName("");
-        }
-      },
-      onSuccess: ({ userInfo }) => {
-        setInviteUserInfo({ ...userInfo });
-        queryClient.setQueryData(["searchNickname"], userInfo);
-      },
-    }
-  );
-  const { mutate: inviteMutate } = useMutation(
-    (inviteData) => inviteApi.invite(inviteData),
-    {
-      onError: (error) => {
-        const status = error.response.status;
-        if (status === 401)
-          openAlertModal({ bigTxt: "이미 공유하고있는 다이어리 입니다." });
-      },
-      onSuccess: () => {
-        setIsInvite(!isInvite);
-        setPopup(!popup);
-      },
-    }
-  );
 
   const userSearchOnclickHandle = () => {
     inviteSearchMutate(name);
     setHostUserInfo({ ...data.userInfo });
   };
+
   const userInviteOnClickHandle = () => {
     const inviteData = {
       diaryId: Number(id),
@@ -110,13 +101,7 @@ const Invite = () => {
                 {isInvite ? "초대 중" : "초대하기"}
               </StIsviteBtn>
             </StSearchUserInfo>
-            {popup && (
-              <Toast
-                nickName={inviteUserInfo.nickname}
-                setPopup={setPopup}
-                text="님을 초대하였습니다."
-              />
-            )}
+            {popup && <Toast nickName={inviteUserInfo.nickname} setPopup={setPopup} text="님을 초대하였습니다." />}
           </StSearchUserInfoWrapper>
         )}
       </StInviteSection>

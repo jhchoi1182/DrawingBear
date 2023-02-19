@@ -1,11 +1,11 @@
-import { StSection } from "../../UI/common";
-import { useForm } from "react-hook-form";
+import styled from "styled-components";
 import { useMutation } from "@tanstack/react-query";
 import { Input, WorningWord } from "../../components/common/Input";
 import { mypageApi } from "../../apis/axios";
-import styled from "styled-components";
-import useDispatchHook from "../../hooks/useDispatchHook";
+import { StSection } from "../../UI/common";
+import { useForm } from "react-hook-form";
 import { Header } from "../../components/common/header/Header";
+import useDispatchHook from "../../hooks/useDispatchHook";
 
 const MyPassword = () => {
   const { openAlertModal } = useDispatchHook();
@@ -18,12 +18,12 @@ const MyPassword = () => {
   } = useForm({ mode: "onChange" });
 
   const { mutate } = useMutation((formData) => mypageApi.PWupdate(formData), {
-    onSuccess: (data) => {
-      openAlertModal({ bigTxt: data.message, move: "/setting" });
-    },
     onError: (error) => {
       const errorStatus = error.response.status;
-      if (errorStatus === 401) openAlertModal({ bigTxt: "현재 비밀번호가 틀렸습니다." });
+      errorStatus === 401 && openAlertModal({ bigTxt: "현재 비밀번호가 틀렸습니다." });
+    },
+    onSuccess: (data) => {
+      openAlertModal({ bigTxt: data.message, move: "/setting" });
     },
   });
 

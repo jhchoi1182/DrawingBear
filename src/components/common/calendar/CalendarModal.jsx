@@ -12,6 +12,7 @@ import CalendarHeader from "./CalendarHeader";
 import loadingBear from "../../../assets/images/loadingBear.webp";
 import { Modal } from "../../common/modal/ReactModal";
 import { flex } from "../../../UI/common";
+import { useCallback } from "react";
 
 const CalendarModal = ({ children }) => {
   const today = {
@@ -36,11 +37,11 @@ const CalendarModal = ({ children }) => {
 
   // 모달 닫을 시 날짜 초기화
 
-  const fnStartHandler = () => {
+  const fnStartHandler = useCallback(() => {
     setSelectedYear(today.year);
     setSelectedMonth(today.month);
     setShowMonth(false);
-  };
+  }, []);
 
   // 날짜별 일기 조회에 이용하기 위해 데이터 원본을 복사
 

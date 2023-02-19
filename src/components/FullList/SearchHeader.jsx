@@ -1,14 +1,14 @@
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
-import { useQueryClient } from "@tanstack/react-query";
 import CalendarModal from "../common/calendar/CalendarModal";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { Header } from "../common/header/Header";
 
 const SearchHeader = ({ setChangeHeader }) => {
-  const queryClient = useQueryClient();
   const [searchValue, setSearchValue] = useState("");
+  const queryClient = useQueryClient();
 
   const searchHandler = () => {
     const allPosts = queryClient.getQueryData(["Allposts_copy"]);

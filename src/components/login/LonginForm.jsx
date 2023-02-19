@@ -36,9 +36,7 @@ const LonginForm = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (inputData) => {
-    return loginAxios(inputData);
-  };
+  const onSubmit = (inputData) => loginAxios(inputData);
 
   return (
     <>

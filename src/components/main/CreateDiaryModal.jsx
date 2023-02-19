@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { __addDiary } from "../../redux/modules/diarySlice";
-import soloDiaryBear from "../../assets/images/soloDiaryBear.webp";
 import coupleDiaryBear from "../../assets/images/coupleDiaryBear.webp";
+import soloDiaryBear from "../../assets/images/soloDiaryBear.webp";
+import { __addDiary } from "../../redux/modules/diarySlice";
 import { Modal } from "../common/modal/ReactModal";
 import { flex } from "../../UI/common";
 

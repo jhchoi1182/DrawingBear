@@ -1,26 +1,27 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { VscBell } from "react-icons/vsc";
 import { BsDot } from "react-icons/bs";
-import { StSection, flex } from "../../UI/common";
-import { alarmApi, mypageApi } from "../../apis/axios";
-import Footer from "../../components/common/Footer";
-import Buttons from "../../components/common/Button/Buttons";
-import { Header } from "../../components/common/header/Header";
 import SettingMenu from "../../components/Setting/SettingMenu";
+import Buttons from "../../components/common/Button/Buttons";
+import Footer from "../../components/common/Footer";
+import { alarmApi, mypageApi } from "../../apis/axios";
+import { StSection, flex } from "../../UI/common";
+import { Header } from "../../components/common/header/Header";
 
 const Setting = () => {
   const [myProfileData, setMyProfileData] = useState({});
+  const [profileImg, setProfileImg] = useState("");
   const navigate = useNavigate();
 
   const { data: alarmData } = useQuery(["allAlarm"], alarmApi.read, {
     refetchInterval: 3000,
   });
+  
   const { data } = useQuery(["setting"], mypageApi.read);
-  const [profileImg, setProfileImg] = useState("");
-
+  
   useEffect(() => {
     setProfileImg(data?.userInfo.profileImg);
     setMyProfileData(data?.userInfo);

@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import styled from "styled-components";
-import useDispatchHook from "../../../hooks/useDispatchHook";
-import { mainApi } from "../../../apis/axios";
 import DeleteConfirmBear from "../../../assets/images/DeleteConfirmBear.webp";
 import Buttons from "../../common/Button/Buttons";
+import { mainApi } from "../../../apis/axios";
 import { flex } from "../../../UI/common";
 import { Modal } from "../../common/modal/ReactModal";
+import useDispatchHook from "../../../hooks/useDispatchHook";
 
 const DiaryDeleteConfirmModal = ({ children, diaryName, diaryId }) => {
   const { openAlertModal } = useDispatchHook();

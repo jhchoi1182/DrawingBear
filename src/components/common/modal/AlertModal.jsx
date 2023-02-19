@@ -33,12 +33,12 @@ const AlertModal = ({ showModal, children, bigTxt, smallTxt, select, move, onCli
                   </Modal.Close>
                 </SelectBtnBox>
               ) : move ? (
-                <button className="confirm" onClick={ConfirmReactionHandler}>
+                <button className="confirm alone" onClick={ConfirmReactionHandler}>
                   확인
                 </button>
               ) : (
                 <Modal.Close>
-                  <button className="confirm" onClick={ConfirmReactionHandler}>
+                  <button className="confirm alone" onClick={ConfirmReactionHandler}>
                     확인
                   </button>
                 </Modal.Close>
@@ -105,6 +105,10 @@ const AlertBox = styled.div`
   }
   .confirm {
     color: #3cc7a6;
+  }
+  .alone {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
   }
 `;
 

@@ -5,16 +5,19 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { commentsApi, postsApi } from "../apis/axios";
 import { useNavigate, useParams } from "react-router-dom";
 import borderLine from "../assets/images/borderLine.png";
-import { weatherIcon } from "../assets/images/weather";
 import AlertModal from "../components/common/modal/AlertModal";
 import Buttons from "../components/common/Button/Buttons";
+import { weatherIcon } from "../assets/images/weather";
 import { Header } from "../components/common/header/Header";
+import useDispatchHook from "../hooks/useDispatchHook";
 
 const Detail = () => {
   const navigate = useNavigate();
   const params = useParams().id;
-  const diaryName = localStorage.getItem("diaryName");
   const queryClient = useQueryClient();
+  const { openAlertModal } = useDispatchHook();
+
+  const diaryName = localStorage.getItem("diaryName");
 
   const { data = {}, error, isError, isLoading } = useQuery(["posts"], () => postsApi.get(params));
 
@@ -43,6 +46,10 @@ const Detail = () => {
 
   const { mutate: postDeleteMutate } = useMutation({
     mutationFn: () => postsApi.delete(postId),
+    onError: (err) => {
+      const status = err?.response.request.status;
+      status === 401 && openAlertModal({ bigTxt: "상대방의 일기는 삭제할 수 없어요!" });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries(["Allposts"]);
       navigate(`/list/${diaryId}`);

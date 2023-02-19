@@ -10,7 +10,7 @@
 
 ✨ 너와 내가 그리는 우리의 그림일기. 쓰곰 그리곰 입니다 🥰
 
-👉🏻[쓰곰 그리곰 이용해보기!](https://drawbear.site/) <br>
+👉🏻[쓰곰 그리곰 이용해보기! (현재 카카오 로그인 이용 불가)](https://drawing-bear.vercel.app/) <br>
 👉🏻[쓰곰 그리곰 팀 노션!](https://www.notion.so/jinsoldev/560f3f7c6acf451d9d21c5f309e73921)
 
 <br>
@@ -18,6 +18,18 @@
 ## 🐻 기능 구현
 
 ![124124 PNG](https://user-images.githubusercontent.com/108935568/216934945-1b13f55a-2bb2-485f-803a-747e9cba5975.png)
+
+<details>
+<summary>
+처음 서비스를 접하는 사용자를 위한 튜토리얼 기능
+</summary>
+<div>
+
+![image](https://user-images.githubusercontent.com/116577489/218278466-630b53bd-97a2-48fa-9aa0-67ddf4a6078a.png)
+
+
+</details>
+
 
 <details>
 <summary>
@@ -40,15 +52,6 @@
 
 </details>
 
-<details>
-<summary>
-사용자 초대로 일기장 공유
-</summary>
-<div>
-
-![Untitled (3)](https://user-images.githubusercontent.com/108935568/216936867-20cd1472-2973-4870-a9b2-2158a1f7fa11.png)
-
-</details>
 
 <details>
 <summary>
@@ -73,6 +76,40 @@
 
 
 </details>
+
+
+<details>
+<summary>
+다양한 달력 기능
+</summary>
+<div>
+
+![image](https://user-images.githubusercontent.com/116577489/218278930-9dfabd11-4f83-423d-bd37-25f4f1311d0d.png)
+
+</details>
+
+<details>
+<summary>
+사용자 초대로 일기장 공유
+</summary>
+<div>
+
+![Untitled (3)](https://user-images.githubusercontent.com/108935568/216936867-20cd1472-2973-4870-a9b2-2158a1f7fa11.png)
+
+</details>
+
+<details>
+<summary>
+실시간 알림 기능과 채팅 기능
+</summary>
+<div>
+
+![image](https://user-images.githubusercontent.com/116577489/218279782-255f7f0d-5189-4d92-ba29-6fe5b1611a58.png)
+
+![image](https://user-images.githubusercontent.com/116577489/218279896-3fb2379e-8b57-4030-9085-0167d38f87fd.png)
+
+</details>
+
 
 <br><br><br>
 
@@ -126,6 +163,22 @@
 
 <br>
 
+## :white_check_mark: 작업한 기능들
+
+| 기능   |
+| ------ |
+| 튜토리얼 기능   |
+| 달력   |
+| Axios 인스턴스화   |
+| 메인 페이지 및 다이어리 관련 기능들   | 
+| 컴포넌트 분류 및 컴포넌트화 작업  |
+| 최적화 작업   |
+| 글 작성, 전체 조회, 상세 조회 페이지를 제외한 대부분의 뷰 작업  |
+| 로그인(소셜 로그인 제외) 기능  |
+| PWA 적용  |
+
+
+
 ## 🔆 트러블슈팅
 
   <details>
@@ -171,8 +224,17 @@ bundle.js가 비상식적으로 컸기에 검색 결과 코드 스플리팅이�
 적용 후, 사용하지 않는 자바스크립트가 2.3초에서 0.6초대로 줄며<br>
 성능이 유의미하게 상승하는 결과를 얻을 수 있었음
 
+**배포 후 최종 점수**
+![image](https://user-images.githubusercontent.com/116577489/218282345-c27c1e34-338c-4110-8e5a-33687d748fa5.png)
+
+※ 모든 점수는 전체 글 조회 목록 페이지를 기준으로 하였다.<br>
+아래는 다른 페이지의 점수
+
+![image](https://user-images.githubusercontent.com/116577489/218282377-30150f9f-ef79-44fb-ba4f-3b2d1419e7d6.png)
+
 
 </details>
+
 
 <details>
 <summary>
@@ -229,38 +291,25 @@ Footer에서만 일어나고 있다는 것에 주목.
 
 즉, setQueryData가 발동되는 그 해당 컴포넌트에서는 바뀐 상태값에 따라<br>
 리렌더링이 일어나지만, 그 외의 곳은 캐싱된 상태값이 바뀌었다 하더라도<br>
-리렌더링이 일어나지 않아서 리덕스나 리코일 같은 라이브러리 없이<br> 
-리액트 쿼리만을 온전히 전역 상태 관리로 사용하기엔 부적합하다는 결론을 내림
+리렌더링이 일어나지 않아서 리렌더링을 따로 일으켜줘야만 하고, 따라서<br>
+리덕스나 리코일 같은 라이브러리 없이 리액트 쿼리만을 온전히 전역 상태 관리로<br>
+사용하기엔 부적합하다는 결론을 내림
 
 
 </div>
 </details>
+
 
 <details>
 <summary>
-교차 출처 이미지 보안 문제
+컴파운드 패턴 적용기
 </summary>
 <div>
-
-1. **상황**
-
-캔버스에서 그림을 수정 후 서버에 데이터를 보내는 과정에서<br>
-<strong>교차 출처 이미지 보안 문제</strong>로 toDataURL 메소드를 사용할 수 없는 문제 발생
-
-2. **해결**
-
-관련 내용의 레퍼런스를 MDN과 StackOverFlow에서 확인<br>
-[MDN 문서](https://developer.mozilla.org/ko/docs/Web/HTML/CORS_enabled_image)<br>
-
-클라리언트 측에서 불러온 이미지의 CrossOrigin 속성을 anonymous 로 변경
-서버 측에서 S3의 버킷 권한을 수정
-
-![1](https://user-images.githubusercontent.com/108935568/217809726-34da741d-f036-4b46-b806-0a821985b8a4.png)
-
-![12](https://user-images.githubusercontent.com/108935568/217809732-fbbedb93-ccdf-40d7-a998-407c60213f4b.png)
-
-</div>
+https://jhchoi1182.tistory.com/139
+<div>
 </details>
+
+
 
 
 ## 👻 쓰곰 그리곰의 팀원들

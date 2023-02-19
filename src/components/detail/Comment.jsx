@@ -9,16 +9,13 @@ import { commentsApi } from "../../apis/axios";
 import useDispatchHook from "../../hooks/useDispatchHook";
 import Buttons from "../common/Button/Buttons";
 
-// memo 를 적용하지 않았을 경우 리렌더링이 발생할 때마다 모든 댓글이 리렌더링 되는 문제가 발생.
-// memo 를 적용하여 댓글이 추가되거나 삭제될 때만 리렌더링 되도록 변경.
-
 const Comment = memo(({ comments }) => {
-  const queryClient = useQueryClient();
-  timeAgo.register("ko", ko);
-  const [commentId, setCommentId] = useState(0);
-  const [isDropdown, setIsDropdown] = useState(false);
   const [editCommentValue, setEditCommentValue] = useState("");
   const [isCommentEdit, setIsCommentEdit] = useState(false);
+  const [isDropdown, setIsDropdown] = useState(false);
+  const [commentId, setCommentId] = useState(0);
+  const queryClient = useQueryClient();
+  timeAgo.register("ko", ko);
   const { openAlertModal } = useDispatchHook();
 
   const { mutate: commentDeleteMutate } = useMutation(

@@ -6,9 +6,7 @@ import bookmarked from "../../../assets/images/bookmarked.webp";
 import unbookmarked from "../../../assets/images/unbookmarked.webp";
 import useDispatchHook from "../../../hooks/useDispatchHook";
 
-const Diary = (props) => {
-  const { size, bgColor, onClick, bookmark, diaryId } = props;
-
+const Diary = ({ size, bgColor, onClick, bookmark, diaryId }) => {
   const queryClient = useQueryClient();
   const { openAlertModal } = useDispatchHook();
 

@@ -1,10 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
-import { StSection } from "../../UI/common";
-import { mainApi } from "../../apis/axios";
+import { useQuery } from "@tanstack/react-query";
 import DiaryManageCard from "../../components/Setting/DiaryManageCard";
 import useDispatchHook from "../../hooks/useDispatchHook";
 import Loading from "../../components/common/Loading";
+import { StSection } from "../../UI/common";
+import { mainApi } from "../../apis/axios";
 import { Header } from "../../components/common/header/Header";
 
 const DiaryManage = () => {
@@ -18,7 +18,7 @@ const DiaryManage = () => {
   } = useQuery(["main"], mainApi.read, {
     onError: (error) => {
       const { status } = error?.response.request;
-      if (status === 400) openAlertModal({ bigTxt: "일기장 조회에 실패했습니다.", move: "/login" });
+      status === 400 && openAlertModal({ bigTxt: "일기장 조회에 실패했습니다.", move: "/login" });
     },
   });
 

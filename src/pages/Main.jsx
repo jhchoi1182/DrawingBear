@@ -12,32 +12,21 @@ const Main = () => {
   const { diaryTypes } = useSelector((state) => state.diarySlice);
   const { openAlertModal } = useDispatchHook();
 
-  const { data = [], isLoading } = useQuery(["main"], mainApi.read, {
+  const { data = [] } = useQuery(["main"], mainApi.read, {
     onError: (error) => {
-      const { status } = error?.response.request;
-      if (status === 400)
-        openAlertModal({
-          bigTxt: "다이어리 조회에 실패했습니다.",
-          move: "/login",
-        });
-      else if (status === 404)
-        openAlertModal({
-          bigTxt: "다이어리 조회에 실패했습니다.",
-          move: "/login",
-        });
+      const { status } = error.response.request;
+      status === 400 && openAlertModal({ bigTxt: "다이어리 조회에 실패했습니다.", move: "/login" });
+      status === 404 && openAlertModal({ bigTxt: "다이어리 조회에 실패했습니다.", move: "/login" });
     },
   });
 
   const diaryType = (diaries) => {
     if (diaryTypes.couple === 0) {
-      const soloDiary = diaries?.filter((diary) => diary.couple === 0);
-      return soloDiary;
+      return diaries?.filter((diary) => diary.couple === 0);
     } else if (diaryTypes.couple === 1) {
-      const coupleDiary = diaries?.filter((diary) => diary.couple === 1);
-      return coupleDiary;
+      return diaries?.filter((diary) => diary.couple === 1);
     } else if (diaryTypes.bookmark === 1) {
-      const favoriteDiary = diaries?.filter((diary) => diary.bookmark === 1);
-      return favoriteDiary;
+      return diaries?.filter((diary) => diary.bookmark === 1);
     }
   };
 

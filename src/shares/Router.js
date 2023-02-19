@@ -17,7 +17,6 @@ const Invite = React.lazy(() => import("../pages/Invite"));
 const Detail = React.lazy(() => import("../pages/Detail"));
 const UpdatePost = React.lazy(() => import("../pages/UpdatePost"));
 const UpdateDiary = React.lazy(() => import("../pages/UpdateDiary"));
-const ButtonPreview = React.lazy(() => import("../pages/ButtonPreview"));
 const Setting = React.lazy(() => import("../pages/Setting/Setting"));
 const DiaryManage = React.lazy(() => import("../pages/Setting/DiaryManage"));
 const MyProfileEdit = React.lazy(() => import("../pages/Setting/MyProfileEdit"));
@@ -26,10 +25,10 @@ const AccoutDelete = React.lazy(() => import("../pages/Setting/AccoutDelete"));
 const Alarm = React.lazy(() => import("../pages/Setting/Alarm"));
 const InfoEdit = React.lazy(() => import("../pages/Setting/InfoEdit"));
 const PrivateRoutes = React.lazy(() => import("./PrivateRoutes"));
-const Chatting = React.lazy(() => import("../pages/Chatting"));
+const Chatting = React.lazy(() => import("../pages/Chatting/Chatting"));
 
-const ChatList = React.lazy(() => import("../pages/ChatList"));
-const NoChatList = React.lazy(() => import("../pages/NoChatList"));
+const ChatList = React.lazy(() => import("../pages/Chatting/ChatList"));
+const NoChatList = React.lazy(() => import("../components/chatting/NoChatList"));
 const KakaoLogin = React.lazy(() => import("../components/login/KakaoLogin"));
 
 const Router = () => {
@@ -56,7 +55,6 @@ const Router = () => {
               <Route path="/invite/:id" element={<Invite />} />
               <Route path="/detail/:id" element={<Detail />} />
               <Route path="/detail/:id/update" element={<UpdatePost />} />
-              <Route path="/buttonpreview" element={<ButtonPreview />} />
               <Route path="/setting" element={<Setting />} />
               <Route path="/setting/diaryManage" element={<DiaryManage />} />
               <Route path="/setting/profileEdit" element={<MyProfileEdit />} />
