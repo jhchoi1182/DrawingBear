@@ -2,7 +2,6 @@ import axios from "axios";
 
 export const instance = axios.create({
   baseURL: process.env.REACT_APP_MY_API,
-  // withCredentials: true, // 로그인 후 로그인이 풀리는 문제를 해결하기 위함
 });
 
 const getToken = () => {
@@ -24,7 +23,6 @@ instance.interceptors.response.use(
     if (unauthorization?.indexOf("로그인") >= 0) {
       localStorage.removeItem("token");
       alert("로그인 후 이용가능합니다.");
-      // return window.location.replace("http://localhost:3000/login");
       return window.location.replace("https://drawing-bear.vercel.app/login");
     } else return Promise.reject(error);
   }
