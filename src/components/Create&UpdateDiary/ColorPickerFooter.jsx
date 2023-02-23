@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { flex } from "../../UI/common";
 
@@ -15,7 +16,7 @@ const ColorPickerFooter = ({ setSelectedColor }) => {
   );
 };
 
-export default ColorPickerFooter;
+export default React.memo(ColorPickerFooter);
 
 const Footer = styled.footer`
   position: absolute;

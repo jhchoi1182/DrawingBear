@@ -1,3 +1,4 @@
+import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import coupleDiaryBear from "../../assets/images/coupleDiaryBear.webp";
@@ -15,7 +16,7 @@ const CreatePageLogo = () => {
   );
 };
 
-export default CreatePageLogo;
+export default React.memo(CreatePageLogo);
 
 const CreateLogoBear = styled.div`
   ${flex("", "", "", "column")}

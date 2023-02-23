@@ -38,7 +38,7 @@ const SettingMenu = () => {
         <ConfigOptionBox className="divInWrapper">로그아웃</ConfigOptionBox>
       </AlertModal>
       <div></div>
-      <AlertModal bigTxt={"공지사항이 없어요!"} smallTxt={"그냥 허전해서 달아놓아보았어요!"}>
+      <AlertModal bigTxt={"공지사항이 없어요!"}>
         <ConfigOptionBox>
           공지사항
           <NavigateBtn link={""} />
