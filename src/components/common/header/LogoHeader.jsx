@@ -13,7 +13,7 @@ const LogoHeader = () => {
   );
 };
 
-export default LogoHeader;
+export default React.memo(LogoHeader);
 
 const LogoBear = styled.img`
   width: 5.2rem;

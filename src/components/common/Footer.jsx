@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -27,8 +28,10 @@ const Footer = () => {
     navigate("/chatlist");
   };
 
-  return (
-    <Container>
+  // 혼자 써요 버튼
+
+  const SoloBtn = React.memo(() => {
+    return (
       <button
         className={
           (icon === "solo" && pathname === "/") ||
@@ -42,6 +45,13 @@ const Footer = () => {
         <BsFillPersonFill />
         <span>혼자 써요</span>
       </button>
+    );
+  });
+
+  // 같이 써요 버튼
+
+  const CoupleBtn = React.memo(() => {
+    return (
       <button
         className={icon === "couple" ? "icons selected" : "icons"}
         onClick={() => changeDiaryView({ icon: "couple", couple: 1, bookmark: 0 })}
@@ -49,6 +59,13 @@ const Footer = () => {
         <MdPeopleAlt />
         <span>같이 써요</span>
       </button>
+    );
+  });
+
+  // 책갈피 버튼
+
+  const BookmarkBtn = React.memo(() => {
+    return (
       <button
         className={icon === "bookmark" ? "icons selected" : "icons"}
         onClick={() => changeDiaryView({ icon: "bookmark", couple: 2, bookmark: 1 })}
@@ -56,10 +73,24 @@ const Footer = () => {
         <IoMdBookmark />
         <span>책갈피</span>
       </button>
+    );
+  });
+
+  // 채팅 버튼
+
+  const ChattingBtn = React.memo(() => {
+    return (
       <button className={pathname === "/chatlist" ? "chaticons selected" : "chaticons"} onClick={changeChatList}>
         <BsChatLeftTextFill />
         <span className="chatSpanTag">채팅</span>
       </button>
+    );
+  });
+
+  // 더보기 버튼
+
+  const MoreBtn = React.memo(() => {
+    return (
       <button
         className={pathname === "/setting" ? "icons selected" : "icons"}
         onClick={() => changeDiaryView({ icon: "setting", couple: 0, bookmark: 0, move: "/setting" })}
@@ -68,6 +99,16 @@ const Footer = () => {
         <MdMoreHoriz />
         <span>더보기</span>
       </button>
+    );
+  });
+
+  return (
+    <Container>
+      <SoloBtn />
+      <CoupleBtn />
+      <BookmarkBtn />
+      <ChattingBtn />
+      <MoreBtn />
     </Container>
   );
 };
