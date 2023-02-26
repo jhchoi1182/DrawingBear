@@ -13,8 +13,8 @@ const Diary = ({ size, bgColor, onClick, bookmark, diaryId }) => {
   const { mutate } = useMutation(["diary"], (diaryId) => mainApi.bookmark(diaryId), {
     onError: (error) => {
       const status = error?.response.request.status;
-      if (status === 404) openAlertModal({ bigTxt: "존재하지 않는 다이어리입니다." });
-      else if (status === 500) openAlertModal({ bigTxt: "북마크 저장 및 삭제에 실패했습니다." });
+      status === 404 && openAlertModal({ bigTxt: "존재하지 않는 다이어리입니다." });
+      status === 500 && openAlertModal({ bigTxt: "북마크 저장 및 삭제에 실패했습니다." });
     },
     onSuccess: () => {
       const diaryData = queryClient.getQueryData(["main"])?.diaries;

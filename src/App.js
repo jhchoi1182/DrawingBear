@@ -3,6 +3,7 @@ import { ThemeProvider } from "styled-components";
 import Router from "./shares/Router";
 import GlobalStyle from "./styles/GlobalStyle";
 import theme from "./styles/config/defaultTheme";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -14,6 +15,7 @@ function App() {
           <GlobalStyle />
           <Router />
         </ThemeProvider>
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </>
   );

@@ -18,6 +18,9 @@ const Main = () => {
       status === 400 && openAlertModal({ bigTxt: "다이어리 조회에 실패했습니다.", move: "/login" });
       status === 404 && openAlertModal({ bigTxt: "다이어리 조회에 실패했습니다.", move: "/login" });
     },
+    cacheTime: Infinity,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
   });
 
   const diaryType = (diaries) => {

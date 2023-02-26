@@ -11,14 +11,14 @@ const DiaryDeleteConfirmModal = ({ children, diaryName, diaryId }) => {
   const { openAlertModal } = useDispatchHook();
   const queryClient = useQueryClient();
 
-  const { data, mutate } = useMutation((id) => mainApi.delete(id), {
+  const { mutate } = useMutation((id) => mainApi.delete(id), {
     onError: (error) => {
       const status = error?.response.request.status;
       if (status === 404) openAlertModal({ bigTxt: "다이어리가 존재하지 않습니다." });
       else if (status === 500) openAlertModal({ bigTxt: "다이어리 삭제에 실패하였습니다." });
     },
     onSuccess: () => {
-      openAlertModal({ bigTxt: "다이어리를 삭제했어요.", smallTxt: "다이어리야 안녕!", move: "/" });
+      openAlertModal({ bigTxt: "다이어리를 삭제했어요.", smallTxt: "다이어리야 안녕!"});
       const diaryData = queryClient.getQueryData(["main"])?.diaries;
       queryClient.setQueryData(["main"], {
         diaries: diaryData?.filter((diary) => diary.diaryId !== diaryId),
