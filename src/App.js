@@ -5,7 +5,15 @@ import GlobalStyle from "./styles/GlobalStyle";
 import theme from "./styles/config/defaultTheme";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: Infinity,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+    }
+  }
+});
 
 function App() {
   return (

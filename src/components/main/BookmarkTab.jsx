@@ -12,7 +12,7 @@ const BookmarkTab = ({ diaryData }) => {
       {diaryData?.map((diary, i) => {
         const { diaryName, bookmark, diaryId, outsideColor, couple, invitedNickname, invitedProfileImg } = diary;
         return (
-          <DiaryCardBox key={i}>
+          <DiaryCardBox key={`Diary_${i}`}>
             <label>{diaryName}</label>
             <Diary
               bookmark={bookmark}

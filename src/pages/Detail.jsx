@@ -19,7 +19,10 @@ const Detail = () => {
 
   const diaryName = localStorage.getItem("diaryName");
 
-  const { data = {}, error, isError, isLoading } = useQuery(["posts"], () => postsApi.get(params));
+  const { data = {}, error, isError, isLoading } = useQuery(["posts"], () => postsApi.get(params), {
+    refetchOnReconnect: true,
+    refetchOnWindowFocus: true,
+  });
 
   const {
     postId,
