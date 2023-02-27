@@ -36,7 +36,6 @@ const Login = () => {
       </BoundaryLine>
       <AlertModal
           bigTxt={"점검 중이에요!"}
-          smallTxt={"다음에 다시 시도해주세요"}
         >
       <SocialLogin />
       </AlertModal>
