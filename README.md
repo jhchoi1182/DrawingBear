@@ -163,7 +163,7 @@
 
 <br>
 
-## :white_check_mark: 작업한 기능들
+## :white_check_mark: 내가 작업한 기능들
 
 | 기능   |
 | ------ |
